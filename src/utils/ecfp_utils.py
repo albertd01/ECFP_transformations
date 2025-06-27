@@ -6,13 +6,6 @@ import numpy as np
 from rdkit import Chem, DataStructs
 from rdkit.Chem import rdFingerprintGenerator
 
-'''Although Algorithm 1 in Duvenaud et al. is described as a simplified analog of ECFP, 
-we find that its practical output differs significantly from RDKit’s canonical ECFP. 
-Using aligned atom features and hashing, 
-our implementation of Algorithm 1 yielded near-zero Tanimoto similarity to RDKit ECFP across the ESOL dataset. 
-This suggests that claims about similarity in the NGF paper may rely on using RDKit's implementation, 
-not Algorithm 1 as described.'''
-
 def hash_atom_info(atom):
     features = (
         atom.GetAtomicNum(),
@@ -20,11 +13,10 @@ def hash_atom_info(atom):
         atom.GetTotalNumHs(),
         atom.GetImplicitValence(),
         atom.GetIsAromatic(),
-        #atom.IsInRing()
     )
     s = str(features)
     h = hashlib.sha1(s.encode('utf-8')).hexdigest()
-    return int(h, 16) & 0xFFFFFFFF  # 32-bit
+    return int(h, 16) & 0xFFFFFFFF
 
 def hash_tuple(t):
     h = hashlib.sha1(str(t).encode('utf-8')).hexdigest()
@@ -140,26 +132,4 @@ def compute_ecfp_count_vectors(smiles_list, radius=2, nBits=2048):
     return np.array(fp_array)
     
 
-def compute_tanimoto(fp1, fp2):
-    intersection = np.sum(np.logical_and(fp1, fp2))
-    union = np.sum(np.logical_or(fp1, fp2))
-    return intersection / union
 
-
-'''from rdkit.Chem import MolFromSmiles
-
-smiles = 'CCO' 
-mol = MolFromSmiles(smiles)
-fingerprint_from_scratch = algorithm1_duvenaud(mol, radius=2, nBits=1024)
-fingerprint_rdkit = compute_ecfp_array(smiles, radius=2, nBits=1024)
-fingerprint_paper_repo = AllChem.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=1024)
-arr = np.zeros((1024,), dtype=int)
-DataStructs.ConvertToNumpyArray(fingerprint_paper_repo, arr)
-
-print("From scratch bits:", np.where(fingerprint_from_scratch == 1)[0])
-print("RDKit bits:", np.where(fingerprint_rdkit == 1)[0])
-print("Paper repo bits:", np.where(arr == 1)[0])
-
-print(f"Tanimoto similarity between implementation of Algorithm1 and rdkit (same atom features): {compute_tanimoto(fingerprint_from_scratch, fingerprint_rdkit):.4f}")
-print(f"Tanimoto similarity between implementation of Algorithm1 and paper github: {compute_tanimoto(fingerprint_from_scratch, arr):.4f}")
-print(f"Tanimoto similarity between implementation of rdkit and paper github: {compute_tanimoto(fingerprint_rdkit, arr):.4f}")'''

@@ -88,13 +88,6 @@ def plot_distance_distribution(ecfp_all, ngf_all):
     
 
 def plot_bit_usage_comparison(fp_ecfp: np.ndarray, emb_ngf: np.ndarray):
-    """
-    Plot bit-usage bar charts side-by-side for ECFP binary fingerprints and NGF embeddings.
-    
-    Args:
-        fp_ecfp (np.ndarray): shape [N, D], binary or count ECFP fingerprints.
-        emb_ngf (np.ndarray): shape [N, D], continuous NGF embeddings.
-    """
     # Sum activations per bit/dimension across all molecules
     bit_usage_ecfp = np.sum(fp_ecfp, axis=0)
     bit_usage_ngf  = np.sum(emb_ngf, axis=0)
@@ -116,49 +109,4 @@ def plot_bit_usage_comparison(fp_ecfp: np.ndarray, emb_ngf: np.ndarray):
     plt.show()
 
 
-
-
-def vector_to_square_matrix(dists):
-    """Given a vector of length N(N-1)/2 of pairwise distances (i<j),
-    return a full symmetric [N,N] matrix with zeros on the diagonal."""
-    # Solve N from M = N(N-1)/2
-    M = len(dists)
-    # N^2 - N - 2M = 0  →  N = (1 + sqrt(1+8M)) / 2
-    N = int((1 + np.sqrt(1 + 8*M)) // 2)
-    D = np.zeros((N, N), dtype=float)
-
-    # Indices of the upper triangle (i<j)
-    iu = np.triu_indices(N, k=1)
-    D[iu] = dists
-    # Mirror to lower triangle
-    D[(iu[1], iu[0])] = dists
-    return D
-
-def plot_distance_heatmaps(D_ecfp, D_ngf):
-    """
-    Plots side-by-side heatmaps of two distance matrices (ECFP vs NGF).
-
-    Args:
-        D_ecfp (np.ndarray): [N, N] distance matrix for ECFP fingerprints
-        D_ngf  (np.ndarray): [N, N] distance matrix for NGF embeddings
-        random_seed (int): seed for reproducible sampling
-    """
-
-    D_ecfp = vector_to_square_matrix(D_ecfp)
-    D_ngf  = vector_to_square_matrix(D_ngf)
-
-    # Plot
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    sns.heatmap(D_ecfp, ax=ax1, vmin=0, vmax=1, cmap='viridis')
-    ax1.set_title("ECFP Min/Max Tanimoto Distances")
-    ax1.set_xlabel("Molecule Index")
-    ax1.set_ylabel("Molecule Index")
-
-    sns.heatmap(D_ngf, ax=ax2, vmin=0, vmax=1, cmap='viridis')
-    ax2.set_title("NGF Min/Max Tanimoto Distances")
-    ax2.set_xlabel("Molecule Index")
-    ax2.set_ylabel("Molecule Index")
-
-    plt.tight_layout()
-    plt.show()
     

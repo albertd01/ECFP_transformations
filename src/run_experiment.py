@@ -4,8 +4,8 @@ from pathlib import Path
 from utils.dataset_utils import DuvenaudDataset
 from utils.ecfp_utils import compute_ecfp_bit_vectors, compute_algorithm1_fps, compute_ecfp_count_vectors
 from models.ngf import NeuralGraphFingerprint, NGFWithHead
-from utils.evaluation import run_pairwise_analysis, plot_pairwise_distances, plot_distance_distribution, plot_bit_usage_comparison, plot_distance_heatmaps
-from utils.sparsity_analysis import compute_sparsity, plot_bit_usage_cdf
+from utils.evaluation import run_pairwise_analysis
+from utils.sparsity_analysis import compute_sparsity
 from utils.frozen_downstream import run_frozen_downstream_task
 import numpy as np
 from torch_geometric.loader import DataLoader
@@ -115,11 +115,6 @@ def run_experiment(config, experiment):
         sample_size=config['experiment']['evaluation']['num_pairs']
     )
     
-    #plot_distance_distribution(ecfp_all=ecfp_all, ngf_all=ngf_all)
-    #plot_distance_heatmaps(D_ecfp=ecfp_all, D_ngf=ngf_all)
-    
-    #plot_bit_usage_comparison(fp_ecfp=fps_ecfp, emb_ngf=emb_mat)
-    #plot_bit_usage_cdf(fps_ecfp, emb_mat)
 
     # Save the plot
     save_distance_plot(log_dir, ecfp_sample, ngf_sample, r, title=config['experiment']['dataset']+ " frozen NGF embeddings vs. ECFP")
@@ -222,13 +217,10 @@ def run_experiment(config, experiment):
     save_results(log_dir, results_to_log)
 
 if __name__ == "__main__":
-    config_dir = Path("config/experiment.yaml")
-    config = load_config(config_dir)
-    run_experiment(config, "sine_sparsemax")
-    '''config_files = sorted(config_dir.glob("*.yaml"))  # All .yaml files in config/
+    config_dir = Path("config/")
+    config_files = sorted(config_dir.glob("*.yaml"))  # All .yaml files in config/
 
     for config_path in config_files:
         print(f"\n=== Running experiment: {config_path.name} ===")
         config = load_config(config_path)
         run_experiment(config, config_path.name)
-'''
