@@ -8,8 +8,8 @@ experiment:
     "num_layers": 2
     "weight_scale": 1.0
     "sum_fn": "default"    # options: default, bond_weighted
-    "smooth_fn": "tanh"    # options: tanh, identity, relu, sin, tanhsin, sintanh
-    "sparsify_fn": "softmax" # options: gumbel, sparsemax, softmax, temp_softmax, topk_softmax, topk_gumbel
+    "smooth_fn": "tanh"    # options: tanh, identity, relu, sin
+    "sparsify_fn": "softmax" # options: gumbel, sparsemax, softmax
 
   ecfp:
     implementation: rdkit_count  # options: rdkit_binary, rdkit_count, algorithm1
@@ -21,5 +21,3 @@ experiment:
     downstream_task: regression  # Options: regression, classification
     train_end_to_end: false     
     corrupt_labels: false             
-
-# wenn zeit: scaffold split

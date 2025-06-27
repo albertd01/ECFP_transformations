@@ -8,7 +8,7 @@ experiment:
     "num_layers": 2
     "weight_scale": 0.1
     "sum_fn": "default"    # options: default, bond_weighted
-    "smooth_fn": "tanh"    # options: tanh, identity, relu, sin, tanhsin, sintanh
+    "smooth_fn": "tanh"    # options: tanh, identity, relu, sin
     "sparsify_fn": "softmax" # options: gumbel, sparsemax, softmax
 
   ecfp:
@@ -22,4 +22,3 @@ experiment:
     train_end_to_end: false     
     corrupt_labels: false             
 
-# wenn zeit: scaffold split
