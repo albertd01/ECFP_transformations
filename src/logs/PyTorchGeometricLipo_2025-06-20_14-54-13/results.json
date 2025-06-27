@@ -1,0 +1,49 @@
+{
+  "dataset": "lipo",
+  "frozen downstream task": {
+    "pearson_r": 0.21958658517293506,
+    "task": "regression",
+    "ecfp_mean": 0.8828741312026978,
+    "ecfp_std": 0.8828741312026978,
+    "ngf_mean": 1.2368972301483154,
+    "ngf_std": 1.2368972301483154
+  },
+  "sparsity analysis": {
+    "NGF Mean active bits:": 2048.0,
+    "NGF Mean sparsity:": 0.0,
+    "ECFP Mean active bits:": 47.90404761904762,
+    "ECFP Mean sparsity:": 0.9766093517485119
+  },
+  "config": {
+    "dataset": "lipo",
+    "ngf": {
+      "implementation": "pytorch_geometric",
+      "hidden_dim": 128,
+      "fingerprint_dim": 2048,
+      "num_layers": 2,
+      "weight_scale": 1.0,
+      "sum_fn": "default",
+      "smooth_fn": "tanh",
+      "sparsify_fn": "softmax"
+    },
+    "ecfp": {
+      "implementation": "rdkit_binary",
+      "radius": 2,
+      "fingerprint_dim": 2048
+    },
+    "evaluation": {
+      "num_pairs": 1000,
+      "downstream_task": "regression",
+      "train_end_to_end": true,
+      "corrupt_labels": false
+    }
+  },
+  "end to end trained downstream task": [
+    {
+      "pearson_r": 0.7130576255385934,
+      "task": "regression",
+      "mean": 0.6543188691139221,
+      "std": 0.6543188691139221
+    }
+  ]
+}

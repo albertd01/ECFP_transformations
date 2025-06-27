@@ -1,0 +1,41 @@
+{
+  "dataset": "BACE",
+  "frozen downstream task": {
+    "pearson_r": 0.864902690457929,
+    "task": "classification",
+    "ecfp_mean": 0.8483970136144049,
+    "ecfp_std": 0.8483970136144049,
+    "ngf_mean": 0.8407773386034255,
+    "ngf_std": 0.8407773386034255
+  },
+  "sparsity analysis": {
+    "NGF Mean active bits:": 450.64111037673496,
+    "NGF Mean sparsity:": 0.7799603953238599,
+    "ECFP Mean active bits:": 57.959682749504296,
+    "ECFP Mean sparsity:": 0.9716993736574686
+  },
+  "config": {
+    "dataset": "BACE",
+    "ngf": {
+      "implementation": "from_scratch",
+      "hidden_dim": 128,
+      "fingerprint_dim": 2048,
+      "num_layers": 2,
+      "weight_scale": 1.0,
+      "sum_fn": "default",
+      "smooth_fn": "tanh",
+      "sparsify_fn": "softmax"
+    },
+    "ecfp": {
+      "implementation": "algorithm1",
+      "radius": 2,
+      "fingerprint_dim": 2048
+    },
+    "evaluation": {
+      "num_pairs": 1000,
+      "downstream_task": "classification",
+      "train_end_to_end": false,
+      "corrupt_labels": false
+    }
+  }
+}

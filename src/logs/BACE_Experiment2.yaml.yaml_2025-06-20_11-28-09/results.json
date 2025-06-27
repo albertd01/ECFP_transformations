@@ -1,0 +1,49 @@
+{
+  "dataset": "BACE",
+  "frozen downstream task": {
+    "pearson_r": 0.850242950625698,
+    "task": "classification",
+    "ecfp_mean": 0.8646025472112429,
+    "ecfp_std": 0.8646025472112429,
+    "ngf_mean": 0.8702459376372419,
+    "ngf_std": 0.8702459376372419
+  },
+  "sparsity analysis": {
+    "NGF Mean active bits:": 56.26966292134831,
+    "NGF Mean sparsity:": 0.9725245786516854,
+    "ECFP Mean active bits:": 60.05816259087905,
+    "ECFP Mean sparsity:": 0.9706747252974224
+  },
+  "config": {
+    "dataset": "BACE",
+    "ngf": {
+      "implementation": "from_scratch",
+      "hidden_dim": 128,
+      "fingerprint_dim": 2048,
+      "num_layers": 2,
+      "weight_scale": 1.0,
+      "sum_fn": "default",
+      "smooth_fn": "identity",
+      "sparsify_fn": "softmax"
+    },
+    "ecfp": {
+      "implementation": "rdkit_binary",
+      "radius": 2,
+      "fingerprint_dim": 2048
+    },
+    "evaluation": {
+      "num_pairs": 1000,
+      "downstream_task": "classification",
+      "train_end_to_end": true,
+      "corrupt_labels": false
+    }
+  },
+  "end to end trained downstream task": [
+    {
+      "pearson_r": 0.7523062987210124,
+      "task": "classification",
+      "mean": 0.8538647342995169,
+      "std": 0.8538647342995169
+    }
+  ]
+}

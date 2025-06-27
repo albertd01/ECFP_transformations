@@ -1,0 +1,41 @@
+{
+  "dataset": "ESOL",
+  "frozen downstream task": {
+    "pearson_r": 0.8136329598602514,
+    "task": "regression",
+    "ecfp_mean": 1.1919324398040771,
+    "ecfp_std": 1.1919324398040771,
+    "ngf_mean": 0.9683175683021545,
+    "ngf_std": 0.9683175683021545
+  },
+  "sparsity analysis": {
+    "NGF Mean active bits:": 17.30141843971631,
+    "NGF Mean sparsity:": 0.9915520417774822,
+    "ECFP Mean active bits:": 21.361702127659573,
+    "ECFP Mean sparsity:": 0.9895694813829787
+  },
+  "config": {
+    "dataset": "ESOL",
+    "ngf": {
+      "implementation": "from_scratch",
+      "hidden_dim": 128,
+      "fingerprint_dim": 2048,
+      "num_layers": 2,
+      "weight_scale": 1000.0,
+      "sum_fn": "default",
+      "smooth_fn": "tanh",
+      "sparsify_fn": "softmax"
+    },
+    "ecfp": {
+      "implementation": "rdkit_binary",
+      "radius": 2,
+      "fingerprint_dim": 2048
+    },
+    "evaluation": {
+      "num_pairs": 1000,
+      "downstream_task": "regression",
+      "train_end_to_end": false,
+      "corrupt_labels": false
+    }
+  }
+}
