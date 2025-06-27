@@ -1,0 +1,25 @@
+experiment:
+  dataset: ESOL  # Options: ESOL, BACE, lipo
+
+  ngf: 
+    "implementation": "from_scratch" # options: pytorch_geometric, from_scratch
+    "hidden_dim": 128
+    "fingerprint_dim": 2048
+    "num_layers": 2
+    "weight_scale": 1.0
+    "sum_fn": "bond_weighted"    # options: default, bond_weighted
+    "smooth_fn": "tanh"    # options: tanh, identity, relu, sin, tanhsin, sintanh
+    "sparsify_fn": "softmax" # options: gumbel, sparsemax, softmax, temp_softmax, topk_softmax, topk_gumbel
+
+  ecfp:
+    implementation: rdkit_binary  # options: rdkit_binary, rdkit_count, algorithm1
+    radius: 2
+    fingerprint_dim: 2048     
+
+  evaluation:
+    num_pairs: 1000         # Number of random (i, j) pairs for correlation plot
+    downstream_task: regression  # Options: regression, classification
+    train_end_to_end: true     
+    corrupt_labels: false             
+
+# wenn zeit: scaffold split
