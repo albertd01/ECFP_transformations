@@ -8,7 +8,7 @@ from torch_geometric.loader import DataLoader
 from sklearn.model_selection import train_test_split
 
 def run_end_to_end_training(model, dataset, task_type, epochs=150, lr=1e-3, batch_size=64, test_size=0.2):
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cpu')
 
     indices = np.arange(len(dataset))
     labels = np.array([data.y.item() for data in dataset])

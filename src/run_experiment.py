@@ -23,6 +23,7 @@ def run_experiment(config, experiment):
     torch.manual_seed(1312)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)
     
     # Location of results
     log_dir = create_experiment_dir(experiment)
@@ -217,7 +218,7 @@ def run_experiment(config, experiment):
     save_results(log_dir, results_to_log)
 
 if __name__ == "__main__":
-    config_dir = Path("config/")
+    config_dir = Path("config/exp_1_3_only")
     config_files = sorted(config_dir.glob("*.yaml"))  # All .yaml files in config/
 
     for config_path in config_files:
