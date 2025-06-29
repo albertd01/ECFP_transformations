@@ -215,7 +215,7 @@ def run_experiment(config, experiment):
     save_results(log_dir, results_to_log)
 
 if __name__ == "__main__":
-    config_dir = Path("config/exp_1_3_only")
+    config_dir = Path("config")
     config_files = sorted(config_dir.glob("*.yaml"))  # All .yaml files in config/
 
     for config_path in config_files:
