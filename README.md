@@ -22,7 +22,7 @@ experiment:
     "fingerprint_dim": # int: embedding/fingerprint dimension
     "num_layers": # int thesis experiments used 2
     "weight_scale": # float: scales ngf weights
-    "sum_fn":  # ngf node aggregation - options: default, bond_weighted
+    "sum_fn":   # ngf node aggregation - options: default, bond_weighted
     "smooth_fn": # ngf activation - options: tanh, identity, relu, sin
     "sparsify_fn": # ngf sparsification - options: gumbel, sparsemax, softmax
   ecfp:
