@@ -2,7 +2,6 @@ import numpy as np
 from rdkit import Chem
 from utils.dataset_utils import DuvenaudDataset
 from utils.ecfp_utils import compute_ecfp_bit_vectors, compute_algorithm1_fps, compute_ecfp_count_vectors
-#from utils.evaluation import run_pairwise_analysis, plot_pairwise_distances
 from itertools import combinations
 from scipy.stats import pearsonr
 import matplotlib.pyplot as plt

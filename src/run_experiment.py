@@ -194,10 +194,8 @@ def run_experiment(config, experiment):
         "frozen downstream task": {
             "pearson_r": r,
             "task": config['experiment']['evaluation']['downstream_task'],
-            "ecfp_mean": float(results_frozen['ecfp']),
-            "ecfp_std": float(results_frozen['ecfp']),
-            "ngf_mean": float(results_frozen['ngf']),
-            "ngf_std": float(results_frozen['ngf'])
+            "ecfp_result": float(results_frozen['ecfp']),
+            "ngf_result": float(results_frozen['ngf']),
         },
         "sparsity analysis" : {
             "NGF Mean active bits:": float(sparsity_analysis_ngf["mean_active_bits"]),
@@ -212,8 +210,7 @@ def run_experiment(config, experiment):
         results_to_log["end to end trained downstream task"]= {
             "pearson_r": r_trained,
             "task": config['experiment']['evaluation']['downstream_task'],
-            "mean": float(results_trained),
-            "std": float(results_trained)
+            "result": float(results_trained),
         },
     save_results(log_dir, results_to_log)
 

@@ -7,7 +7,7 @@ git clone https://github.com/albertd01/BSC_thesis.git
 Step 2: **Navigate to root of the repository**
 Step 3: **Install requirements** (create venv if you want to isolate dependencies)
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 #### run_experiment.py
 runs all experiments in config directory. Saves results to src/logs
