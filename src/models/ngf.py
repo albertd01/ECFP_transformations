@@ -5,7 +5,6 @@ from torch_geometric.nn import global_add_pool
 from sparsemax import Sparsemax
 import numpy as np
 from models.mlp import MLPClassifier, MLPRegressor
-from entmax import entmax15
 
 
 # === SUM functions ===
