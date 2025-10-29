@@ -231,6 +231,11 @@ class ECFPDataset:
             raise ValueError("split_type must be 'scaffold' or 'random'")
         self.split = Split(train=tr, valid=va, test=te)
 
+    def apply_transform(self, pipeline):
+        """Apply a fitted or stateless pipeline to all features in-place."""
+        self.X = torch.stack([pipeline(x) for x in self.X], dim=0)
+        return self
+
     # ---------- Convenience ----------
     def get_subset(
         self, part: str
