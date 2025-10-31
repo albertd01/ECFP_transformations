@@ -32,11 +32,11 @@ Q = random_rotation_matrix(2048)
 rotation = Rotation(Q)
 
 
-pipeline = Compose([permutation, rotation]) 
+pipeline = Compose([permutation]) 
 
 
-esol = ECFPDataset(name="esol", split_type="random", target_index=0, n_bits=2048, radius=2)
-#esol.apply_transform(pipeline)
+esol = ECFPDataset(name="lipo", split_type="random", target_index=0, n_bits=2048, radius=2, use_count=False)
+esol.apply_transform(pipeline)
 
 result_esol = run_downstream_task(esol, task_type="regression", hidden_dim=128, epochs=100, lr=1e-3, device="cpu")
 print(result_esol) 

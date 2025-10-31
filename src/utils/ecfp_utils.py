@@ -71,6 +71,8 @@ def compute_ecfp_array(smiles: str, radius: int, nBits: int) -> np.ndarray:
     DataStructs.ConvertToNumpyArray(fp, arr)
     return arr
 
+
+
 def compute_ecfp_fp(smiles: str, radius: int, nBits: int, count_fp = False):
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
@@ -79,6 +81,8 @@ def compute_ecfp_fp(smiles: str, radius: int, nBits: int, count_fp = False):
     invariants = get_custom_invariants(mol) #doesnt seem to make a difference with this feature subset
     mfpgen = rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=nBits)
     return mfpgen.GetFingerprint(mol, customAtomInvariants=invariants)
+
+
 
 
 def compute_ecfp_bit_vectors(smiles_list, radius=2, nBits=2048):
@@ -101,16 +105,6 @@ def compute_ecfp_bit_vectors(smiles_list, radius=2, nBits=2048):
 
     return np.array(fp_array)
 
-def compute_algorithm1_fps(smiles_list, radius=2, nBits=2048):
-    fps = []
-    for smi in smiles_list:
-        mol = Chem.MolFromSmiles(smi)
-        if mol is None:
-            continue
-        fp = algorithm1_duvenaud(mol, radius=radius, nBits=nBits)
-        fps.append(fp)
-    return np.array(fps)
-
 def compute_ecfp_count_vectors(smiles_list, radius=2, nBits=2048):
     mfpgen = rdFingerprintGenerator.GetMorganGenerator(
         radius=radius,
@@ -130,6 +124,18 @@ def compute_ecfp_count_vectors(smiles_list, radius=2, nBits=2048):
         fp_array.append(arr)
 
     return np.array(fp_array)
+
+def compute_algorithm1_fps(smiles_list, radius=2, nBits=2048):
+    fps = []
+    for smi in smiles_list:
+        mol = Chem.MolFromSmiles(smi)
+        if mol is None:
+            continue
+        fp = algorithm1_duvenaud(mol, radius=radius, nBits=nBits)
+        fps.append(fp)
+    return np.array(fps)
+
+
     
 
 

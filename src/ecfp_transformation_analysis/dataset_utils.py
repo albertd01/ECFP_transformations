@@ -100,15 +100,18 @@ def morgan_ecfp_bits(
     smiles: str,
     radius: int = 2,
     n_bits: int = 2048,
-    use_chirality: bool = True
+    use_chirality: bool = True,
+    use_count: bool = False
 ) -> np.ndarray:
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         raise ValueError("Invalid SMILES string")
     
     mfpgen = rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=n_bits)
-    fp = mfpgen.GetFingerprint(mol)
-
+    if use_count:
+        fp = mfpgen.GetCountFingerprint(mol)
+    else:
+        fp = mfpgen.GetFingerprint(mol)
     arr = np.zeros((n_bits,), dtype=int)
     DataStructs.ConvertToNumpyArray(fp, arr)
     return arr
@@ -174,6 +177,7 @@ class ECFPDataset:
         radius: int = 2,
         n_bits: int = 2048,
         use_chirality: bool = True,
+        use_count: bool = False,
         split_type: str = "scaffold",   # "scaffold" or "random"
         frac_train: float = 0.8,
         frac_valid: float = 0.1,
@@ -190,6 +194,7 @@ class ECFPDataset:
         self.radius = radius
         self.n_bits = n_bits
         self.use_chirality = use_chirality
+        self.use_count = use_count
         self.feature_transform = feature_transform
         self.device = device or torch.device("cpu")
 
@@ -213,7 +218,7 @@ class ECFPDataset:
 
         # 2) Compute ECFPs in memory
         X_np = np.stack(
-            [morgan_ecfp_bits(s, radius=radius, n_bits=n_bits, use_chirality=use_chirality)
+            [morgan_ecfp_bits(s, radius=radius, n_bits=n_bits, use_chirality=use_chirality, use_count=use_count)
              for s in self.smiles],
             axis=0
         )  # [N, D]
