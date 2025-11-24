@@ -49,6 +49,12 @@ class Scaling(StatelessTransform):
     def to(self, device): self.s = self.s.to(device); return self
     def __call__(self, x, idx=None): return x * self.s
 
+class Translation(StatelessTransform):
+    """Adds a constant vector to shift features: x' = x + b"""
+    def __init__(self, bias: torch.Tensor): self.b = bias
+    def to(self, device): self.b = self.b.to(device); return self
+    def __call__(self, x, idx=None): return x + self.b
+
 class DropoutDeterministic(StatelessTransform):
     """Same mask for all samples (useful for ablations)."""
     def __init__(self, keep: float, dim: int, seed: int = 0):
@@ -71,9 +77,189 @@ class RandomGaussianProjection(BaseTransform):
         self.A, _ = torch.linalg.qr(A.T)  # [D,out] orthonormal cols
         self.A = self.A.T  # [out,D]
         return self
-    def to(self, device): 
+    def to(self, device):
         if self.A is not None: self.A = self.A.to(device)
         return self
     def __call__(self, x, idx=None): return self.A @ x
     def state_dict(self): return {"A": self.A}
     def load_state_dict(self, sd): self.A = sd["A"]
+
+
+# ============================================================================
+# Transformations for Density and Continuity
+# ============================================================================
+
+class GaussianNoise(StatelessTransform):
+    """
+    Adds Gaussian noise to create continuity: x' = x + ε, where ε ~ N(0, σ²I).
+    This converts discrete/binary ECFPs to continuous values.
+    """
+    def __init__(self, sigma: float = 0.1, seed: int = 0):
+        self.sigma = sigma
+        self.seed = seed
+        self.rng = torch.Generator().manual_seed(seed)
+
+    def __call__(self, x, idx=None):
+        # Use idx as additional seed if provided for reproducibility per sample
+        if idx is not None:
+            g = torch.Generator().manual_seed(self.seed + idx)
+        else:
+            g = self.rng
+        noise = torch.randn(x.shape, generator=g, device=x.device, dtype=x.dtype) * self.sigma
+        return x + noise
+
+
+class L2Normalization(StatelessTransform):
+    """
+    Normalizes vectors to unit L2 norm: x' = x / ||x||₂.
+    Creates denser representations by spreading values across the sphere.
+    """
+    def __init__(self, eps: float = 1e-8):
+        self.eps = eps
+
+    def __call__(self, x, idx=None):
+        norm = torch.linalg.norm(x) + self.eps
+        return x / norm
+
+
+class Standardization(BaseTransform):
+    """
+    Z-score normalization: x' = (x - μ) / σ.
+    Stateful: computes mean and std from training data in fit().
+    Creates continuous, zero-centered representations.
+    """
+    def __init__(self, eps: float = 1e-8):
+        self.eps = eps
+        self.mean = None
+        self.std = None
+
+    def fit(self, X):
+        # X: [N, D] tensor
+        self.mean = X.mean(dim=0)
+        self.std = X.std(dim=0) + self.eps
+        return self
+
+    def to(self, device):
+        if self.mean is not None:
+            self.mean = self.mean.to(device)
+            self.std = self.std.to(device)
+        return self
+
+    def __call__(self, x, idx=None):
+        return (x - self.mean) / self.std
+
+    def state_dict(self):
+        return {"mean": self.mean, "std": self.std}
+
+    def load_state_dict(self, sd):
+        self.mean = sd["mean"]
+        self.std = sd["std"]
+
+
+class NonlinearActivation(StatelessTransform):
+    """
+    Applies smooth non-linear transformations to create continuity.
+    Supports: tanh, sigmoid, softplus, gelu.
+    """
+    def __init__(self, activation: str = "tanh", scale: float = 1.0):
+        """
+        Args:
+            activation: One of ["tanh", "sigmoid", "softplus", "gelu"]
+            scale: Scaling factor applied before activation (larger = steeper)
+        """
+        self.activation = activation.lower()
+        self.scale = scale
+
+        if self.activation not in ["tanh", "sigmoid", "softplus", "gelu"]:
+            raise ValueError(f"Unknown activation: {activation}")
+
+    def __call__(self, x, idx=None):
+        x_scaled = x * self.scale
+
+        if self.activation == "tanh":
+            return torch.tanh(x_scaled)
+        elif self.activation == "sigmoid":
+            return torch.sigmoid(x_scaled)
+        elif self.activation == "softplus":
+            return torch.nn.functional.softplus(x_scaled)
+        elif self.activation == "gelu":
+            return torch.nn.functional.gelu(x_scaled)
+
+
+class SparseToDense(StatelessTransform):
+    """
+    Converts sparse binary vectors to dense continuous representations.
+    Uses temperature-scaled softmax: x'ᵢ = exp(xᵢ/T) / (Σⱼ exp(xⱼ/T) + ε).
+    Lower temperature → more peaked (closer to original).
+    Higher temperature → more uniform (denser).
+    """
+    def __init__(self, temperature: float = 1.0, mode: str = "softmax"):
+        """
+        Args:
+            temperature: Controls density (higher = more dense/uniform)
+            mode: "softmax" or "normalize" (simple normalization to sum to 1)
+        """
+        self.temperature = temperature
+        self.mode = mode
+
+    def __call__(self, x, idx=None):
+        if self.mode == "softmax":
+            # Apply softmax with temperature
+            x_temp = x / self.temperature
+            return torch.softmax(x_temp, dim=0)
+        elif self.mode == "normalize":
+            # Simple normalization to [0, 1] and sum to 1
+            x_pos = torch.relu(x)  # Ensure positive
+            total = x_pos.sum() + 1e-8
+            return x_pos / total
+        else:
+            raise ValueError(f"Unknown mode: {self.mode}")
+
+
+class AdaptiveScaling(BaseTransform):
+    """
+    Feature-wise learned scaling and shifting: x' = scale * x + shift.
+    Similar to batch normalization but with parameters learned from data.
+    Stateful: computes scale and shift from training data statistics.
+    """
+    def __init__(self, method: str = "minmax"):
+        """
+        Args:
+            method: "minmax" (scale to [0,1]) or "robust" (using median/IQR)
+        """
+        self.method = method
+        self.scale = None
+        self.shift = None
+
+    def fit(self, X):
+        # X: [N, D]
+        if self.method == "minmax":
+            x_min = X.min(dim=0)[0]
+            x_max = X.max(dim=0)[0]
+            self.scale = 1.0 / (x_max - x_min + 1e-8)
+            self.shift = -x_min * self.scale
+        elif self.method == "robust":
+            # Use median and IQR for robustness to outliers
+            median = X.median(dim=0)[0]
+            q25 = torch.quantile(X, 0.25, dim=0)
+            q75 = torch.quantile(X, 0.75, dim=0)
+            iqr = q75 - q25 + 1e-8
+            self.scale = 1.0 / iqr
+            self.shift = -median * self.scale
+        return self
+
+    def to(self, device):
+        if self.scale is not None:
+            self.scale = self.scale.to(device)
+            self.shift = self.shift.to(device)
+        return self
+
+    def __call__(self, x, idx=None):
+        return self.scale * x + self.shift
+
+    def state_dict(self):
+        return {"scale": self.scale, "shift": self.shift}
+
+    def load_state_dict(self, sd):
+        self.scale = sd["scale"]
+        self.shift = sd["shift"]

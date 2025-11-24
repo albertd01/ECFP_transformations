@@ -1,0 +1,122 @@
+[
+  {
+    "transform_name": "baseline",
+    "dataset": "esol",
+    "task_type": "regression",
+    "downstream_performance": {
+      "metric": "RMSE",
+      "val": 1.1485404968261719,
+      "test": 1.1244126558303833
+    },
+    "distance_preservation": null,
+    "sparsity_metrics": null
+  },
+  {
+    "transform_name": "rotation",
+    "dataset": "esol",
+    "task_type": "regression",
+    "downstream_performance": {
+      "metric": "RMSE",
+      "val": 1.1135237216949463,
+      "test": 1.0643631219863892
+    },
+    "distance_preservation": {
+      "tanimoto": {
+        "correlation": 0.9997289033871158,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9998089855367345,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9990123300869415,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "continuous_tanimoto": {
+        "correlation": -0.13377829550264622,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    },
+    "sparsity_metrics": {
+      "original": {
+        "zero_fraction": 0.98950498323914,
+        "nonzero_per_sample": 21.493794326241133,
+        "gini_coefficient": 0.98950498323914,
+        "coefficient_of_variation": 9.709952354431152,
+        "mean": 0.010495016351342201,
+        "std": 0.10190621018409729,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "transformed": {
+        "zero_fraction": 7.791722074468084e-06,
+        "nonzero_per_sample": 2047.9840425531916,
+        "gini_coefficient": 0.44212487359917296,
+        "coefficient_of_variation": 87.9570541381836,
+        "mean": -0.001164632965810597,
+        "std": 0.1024385616183281,
+        "min": -0.6799224019050598,
+        "max": 0.7259314060211182
+      }
+    }
+  },
+  {
+    "transform_name": "permutation",
+    "dataset": "esol",
+    "task_type": "regression",
+    "downstream_performance": {
+      "metric": "RMSE",
+      "val": 1.158621072769165,
+      "test": 1.1069706678390503
+    },
+    "distance_preservation": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "continuous_tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    },
+    "sparsity_metrics": {
+      "original": {
+        "zero_fraction": 0.98950498323914,
+        "nonzero_per_sample": 21.493794326241133,
+        "gini_coefficient": 0.98950498323914,
+        "coefficient_of_variation": 9.709952354431152,
+        "mean": 0.010495016351342201,
+        "std": 0.10190621018409729,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "transformed": {
+        "zero_fraction": 0.98950498323914,
+        "nonzero_per_sample": 21.493794326241133,
+        "gini_coefficient": 0.98950498323914,
+        "coefficient_of_variation": 9.709951400756836,
+        "mean": 0.010495016351342201,
+        "std": 0.1019062027335167,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  }
+]

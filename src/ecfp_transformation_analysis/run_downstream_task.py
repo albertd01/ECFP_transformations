@@ -3,6 +3,7 @@ from downstream import run_downstream_task
 import torch
 from transforms import Compose, Rotation, Permutation
 import numpy as np
+from plots import plot_norms
 '''bace = ECFPDataset(name="BACE", split_type="scaffold", target_index=0, n_bits=2048, radius=2)
 result_bace = run_downstream_task(bace, task_type="classification", hidden_dim=128, epochs=100, lr=1e-3, device="cpu")
 print(result_bace) '''
@@ -32,11 +33,13 @@ Q = random_rotation_matrix(2048)
 rotation = Rotation(Q)
 
 
-pipeline = Compose([permutation]) 
+pipeline = Compose([rotation, permutation]) 
 
+original_dataset = ECFPDataset(name="esol", split_type="random", target_index=0, n_bits=2048, radius=2, use_count=False)
 
-esol = ECFPDataset(name="lipo", split_type="random", target_index=0, n_bits=2048, radius=2, use_count=False)
-esol.apply_transform(pipeline)
+transformed_dataset = ECFPDataset(name="esol", split_type="random", target_index=0, n_bits=2048, radius=2, use_count=False)
+transformed_dataset.apply_transform(pipeline)
 
-result_esol = run_downstream_task(esol, task_type="regression", hidden_dim=128, epochs=100, lr=1e-3, device="cpu")
+result_esol = run_downstream_task(transformed_dataset, task_type="regression", hidden_dim=128, epochs=100, lr=1e-3, device="cpu")
 print(result_esol) 
+

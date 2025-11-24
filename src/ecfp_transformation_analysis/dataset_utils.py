@@ -18,12 +18,16 @@ from typing import Callable, List, Optional, Sequence, Tuple
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader, TensorDataset
-
+import torch.nn as nn
+import torch.nn.functional as F
 from torch_geometric.datasets import MoleculeNet
 
 from rdkit import Chem, DataStructs
 from rdkit.Chem import AllChem,rdFingerprintGenerator
 from rdkit.Chem.Scaffolds import MurckoScaffold
+
+    
+
 
 
 # -----------------------------
@@ -237,9 +241,22 @@ class ECFPDataset:
         self.split = Split(train=tr, valid=va, test=te)
 
     def apply_transform(self, pipeline):
-        """Apply a fitted or stateless pipeline to all features in-place."""
+        """
+        Apply a fitted or stateless pipeline to all features in-place.
+        If the pipeline has a fit() method, it will be called first on the data.
+        """
+        # Fit the pipeline on the training data if it has a fit() method
+        if hasattr(pipeline, 'fit'):
+            pipeline.fit(self.X)
+
+        # Apply transformation to all samples
         self.X = torch.stack([pipeline(x) for x in self.X], dim=0)
         return self
+
+    @property
+    def features(self):
+        """Alias for X to provide a clearer API for accessing feature matrix."""
+        return self.X
 
     # ---------- Convenience ----------
     def get_subset(
@@ -280,3 +297,65 @@ class ECFPDataset:
         n_pos = int((y == 1).sum())
         n_neg = int((y == 0).sum())
         return n_neg, n_pos
+    
+class TransformedDataset(Dataset):
+    def __init__(self, base_ds, transform):
+        self.base = base_ds
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.base)
+
+    def __getitem__(self, i):
+        x, y = self.base[i]  # assumes base returns (x, y)
+        return self.transform(x, idx=i), y
+
+@dataclass(frozen=True)
+class RadiusSchema:
+    # list of (start, end) indices for each radius block within the full vector
+    blocks: list  # e.g., [(0,512), (512,1024), (1024,1536)]
+
+    def slices(self):
+        return [slice(a,b) for (a,b) in self.blocks]
+
+class BlockRadiusMixer(nn.Module):
+    """
+    Applies, for each radius block r, y_r = sigma(Q_r x_r), then concatenates and L2-normalizes.
+    Q_r is orthogonal (fixed once). Optionally add cross-radius coupling later.
+    """
+    def __init__(self, schema, nonlin="relu", seed=0):
+        super().__init__()
+        self.slices = schema.slices()
+        self.blocks = nn.ModuleList()
+
+        g = torch.Generator().manual_seed(seed)
+        for sl in self.slices:
+            d = sl.stop - sl.start
+            # build an orthogonal matrix Q_r
+            A = torch.randn(d, d, generator=g)
+            Q, R = torch.linalg.qr(A)
+            # fix sign ambiguity to make det ~ +1
+            sign = torch.sign(torch.diag(R))
+            Q = Q * sign
+            layer = nn.Linear(d, d, bias=False)
+            layer.weight.data.copy_(Q.T)  # so y = Q x
+            layer.weight.requires_grad_(False)  # frozen; this is a "fixed GNN layer"
+            self.blocks.append(layer)
+
+        self.nonlin = getattr(F, nonlin) if isinstance(nonlin, str) else nonlin
+
+    @torch.no_grad()
+    def forward(self, x):
+        # x: [D] or [B, D]
+        batched = (x.dim() == 2)
+        if not batched:
+            x = x.unsqueeze(0)
+
+        outs = []
+        for layer, sl in zip(self.blocks, self.slices):
+            z = layer(x[..., sl])           # blockwise linear mix
+            z = self.nonlin(z)              # nonlinearity
+            outs.append(z)
+        y = torch.cat(outs, dim=-1)
+        y = F.normalize(y, p=2, dim=-1)     # L2 normalize
+        return y if batched else y.squeeze(0)
