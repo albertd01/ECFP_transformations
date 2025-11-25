@@ -1,4 +1,6 @@
 import math, numpy as np, torch
+import torch.nn as nn
+import torch.nn.functional as F
 from typing import Optional, Sequence, Protocol
 
 
@@ -263,3 +265,99 @@ class AdaptiveScaling(BaseTransform):
     def load_state_dict(self, sd):
         self.scale = sd["scale"]
         self.shift = sd["shift"]
+
+
+# ============================================================================
+# Block Radius Linear Mixing (GNN-inspired transformation)
+# ============================================================================
+
+class BlockRadiusLinearMixing(StatelessTransform):
+    """
+    GNN-inspired transformation for multi-radius ECFPs.
+
+    Applies orthogonal linear maps + nonlinearity within each radius block,
+    then concatenates and L2 normalizes. This mimics GNN layer-wise processing
+    where each "layer" (radius) has its own transformation.
+
+    This transformation requires multi-radius ECFP inputs where different radii
+    are stored in separate blocks of the feature vector.
+
+    Args:
+        radius_blocks: List of (start, end) indices for each radius block
+                      e.g., [(0, 512), (512, 1024), (1024, 1536)] for radius=2
+        nonlinearity: Activation function ("relu", "tanh", "gelu", "sigmoid")
+        seed: Random seed for generating orthogonal matrices
+    """
+    def __init__(
+        self,
+        radius_blocks: Sequence[tuple],
+        nonlinearity: str = "relu",
+        seed: int = 0
+    ):
+        self.radius_blocks = list(radius_blocks)
+        self.nonlinearity = nonlinearity
+        self.seed = seed
+
+        # Generate orthogonal matrix for each radius block
+        g = torch.Generator().manual_seed(seed)
+        self.Q_blocks = []
+
+        for (start, end) in self.radius_blocks:
+            dim = end - start
+            # Generate random orthogonal matrix via QR decomposition
+            A = torch.randn(dim, dim, generator=g)
+            Q, R = torch.linalg.qr(A)
+            # Fix sign ambiguity
+            d = torch.sign(torch.diagonal(R))
+            Q = Q * d
+            self.Q_blocks.append(Q)
+
+        # Set up nonlinearity
+        if nonlinearity == "relu":
+            self.activation = torch.relu
+        elif nonlinearity == "tanh":
+            self.activation = torch.tanh
+        elif nonlinearity == "gelu":
+            self.activation = F.gelu
+        elif nonlinearity == "sigmoid":
+            self.activation = torch.sigmoid
+        else:
+            raise ValueError(f"Unknown nonlinearity: {nonlinearity}")
+
+    def to(self, device):
+        self.Q_blocks = [Q.to(device) for Q in self.Q_blocks]
+        return self
+
+    def __call__(self, x, idx=None):
+        """
+        Apply block-wise linear mixing + nonlinearity + L2 normalization.
+
+        Args:
+            x: Input vector [D] where D = sum of all radius block dimensions
+            idx: Optional sample index (unused)
+
+        Returns:
+            Transformed vector [D] after block mixing and L2 normalization
+        """
+        transformed_blocks = []
+
+        for i, (start, end) in enumerate(self.radius_blocks):
+            # Extract radius block
+            block = x[start:end]
+
+            # Apply orthogonal linear map
+            block_transformed = self.Q_blocks[i] @ block
+
+            # Apply nonlinearity
+            block_transformed = self.activation(block_transformed)
+
+            transformed_blocks.append(block_transformed)
+
+        # Concatenate all transformed blocks
+        result = torch.cat(transformed_blocks)
+
+        # L2 normalize
+        norm = torch.linalg.norm(result) + 1e-8
+        result = result / norm
+
+        return result

@@ -110,7 +110,7 @@ def morgan_ecfp_bits(
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         raise ValueError("Invalid SMILES string")
-    
+
     mfpgen = rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=n_bits)
     if use_count:
         fp = mfpgen.GetCountFingerprint(mol)
@@ -119,6 +119,65 @@ def morgan_ecfp_bits(
     arr = np.zeros((n_bits,), dtype=int)
     DataStructs.ConvertToNumpyArray(fp, arr)
     return arr
+
+
+def morgan_ecfp_radius_deltas(
+    smiles: str,
+    max_radius: int = 2,
+    n_bits_per_radius: int = 512,
+    use_chirality: bool = True,
+    use_count: bool = False
+) -> np.ndarray:
+    """
+    Generate radius-specific delta fingerprints (Approach B).
+
+    For each radius r ∈ {0, 1, ..., max_radius}, compute:
+    - fp[r=0]: Fingerprint with radius 0 (atom features)
+    - fp[r=1]: Fingerprint with radius 1 MINUS radius 0 (new 1-hop patterns)
+    - fp[r=2]: Fingerprint with radius 2 MINUS radius 1 (new 2-hop patterns)
+
+    This ensures each radius block contains ONLY the substructures unique to that radius.
+
+    Args:
+        smiles: SMILES string
+        max_radius: Maximum radius (e.g., 2)
+        n_bits_per_radius: Bits allocated per radius (e.g., 512)
+        use_chirality: Include chirality information
+        use_count: Use count fingerprints instead of binary
+
+    Returns:
+        Concatenated array of shape [(max_radius+1) * n_bits_per_radius]
+        with radius-specific delta fingerprints
+    """
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        raise ValueError("Invalid SMILES string")
+
+    # Generate fingerprints for each radius level
+    fps = []
+    for r in range(max_radius + 1):
+        mfpgen = rdFingerprintGenerator.GetMorganGenerator(radius=r, fpSize=n_bits_per_radius)
+        if use_count:
+            fp = mfpgen.GetCountFingerprint(mol)
+        else:
+            fp = mfpgen.GetFingerprint(mol)
+        arr = np.zeros((n_bits_per_radius,), dtype=int)
+        DataStructs.ConvertToNumpyArray(fp, arr)
+        fps.append(arr)
+
+    # Compute deltas: fp[r] - fp[r-1] (set negative values to 0)
+    deltas = []
+    deltas.append(fps[0])  # Radius 0: keep as-is
+
+    for r in range(1, max_radius + 1):
+        delta = fps[r] - fps[r-1]
+        # For binary fingerprints, delta should be {0, 1}
+        # For count fingerprints, delta shows new occurrences
+        delta = np.maximum(delta, 0)  # Remove negative values
+        deltas.append(delta)
+
+    # Concatenate all radius blocks
+    return np.concatenate(deltas)
 
 
 # -----------------------------
@@ -188,10 +247,18 @@ class ECFPDataset:
         seed: int = 0,
         target_index: Optional[int] = None,  # if None and multi-task, keep all tasks
         feature_transform: Optional[Callable[[torch.Tensor], torch.Tensor]] = None,
-        device: Optional[torch.device] = None
+        device: Optional[torch.device] = None,
+        multi_radius: bool = False,  # If True, use radius-delta fingerprints
+        n_bits_per_radius: Optional[int] = None  # Bits per radius block (only for multi_radius=True)
     ):
         """
         Build the dataset fully in memory.
+
+        Args:
+            multi_radius: If True, generate radius-delta fingerprints where each radius block
+                         contains only the substructures unique to that radius.
+            n_bits_per_radius: Bits allocated per radius block (e.g., 512).
+                              If None and multi_radius=True, uses n_bits // (radius + 1).
         """
         self.name = name
         self.root = root
@@ -201,6 +268,20 @@ class ECFPDataset:
         self.use_count = use_count
         self.feature_transform = feature_transform
         self.device = device or torch.device("cpu")
+        self.multi_radius = multi_radius
+
+        # Determine bits per radius for multi-radius mode
+        if multi_radius:
+            if n_bits_per_radius is None:
+                n_bits_per_radius = n_bits // (radius + 1)
+            self.n_bits_per_radius = n_bits_per_radius
+            # Create RadiusSchema for the block structure
+            blocks = [(r * n_bits_per_radius, (r + 1) * n_bits_per_radius)
+                      for r in range(radius + 1)]
+            self.radius_schema = RadiusSchema(blocks=blocks)
+        else:
+            self.n_bits_per_radius = None
+            self.radius_schema = None
 
         # 1) Load MoleculeNet via PyG
         pyg_ds = MoleculeNet(root=root, name=name)
@@ -221,11 +302,30 @@ class ECFPDataset:
             y_mat = y_mat[:, [target_index]]
 
         # 2) Compute ECFPs in memory
-        X_np = np.stack(
-            [morgan_ecfp_bits(s, radius=radius, n_bits=n_bits, use_chirality=use_chirality, use_count=use_count)
-             for s in self.smiles],
-            axis=0
-        )  # [N, D]
+        if multi_radius:
+            # Generate radius-delta fingerprints
+            X_np = np.stack(
+                [morgan_ecfp_radius_deltas(
+                    s,
+                    max_radius=radius,
+                    n_bits_per_radius=n_bits_per_radius,
+                    use_chirality=use_chirality,
+                    use_count=use_count
+                ) for s in self.smiles],
+                axis=0
+            )  # [N, (radius+1) * n_bits_per_radius]
+        else:
+            # Standard single-radius fingerprints
+            X_np = np.stack(
+                [morgan_ecfp_bits(
+                    s,
+                    radius=radius,
+                    n_bits=n_bits,
+                    use_chirality=use_chirality,
+                    use_count=use_count
+                ) for s in self.smiles],
+                axis=0
+            )  # [N, D]
 
         # 3) Torch tensors
         self.X = torch.from_numpy(X_np).to(torch.float32).to(self.device)    # [N, D]
