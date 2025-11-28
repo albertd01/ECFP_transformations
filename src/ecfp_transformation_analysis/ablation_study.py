@@ -23,7 +23,7 @@ from downstream import run_downstream_task
 from transforms import (
     GaussianNoise, L2Normalization, Standardization, NonlinearActivation,
     SparseToDense, AdaptiveScaling, Rotation, Permutation, RandomGaussianProjection,
-    Scaling, Translation
+    Scaling, Translation, Shear, Reflection
 )
 from pairwise_distances import analyze_distance_preservation, compare_sparsity
 
@@ -201,6 +201,27 @@ def main():
     translation_small = torch.randn(dim, generator=torch.Generator().manual_seed(44)) * 0.1
     translation_medium = torch.randn(dim, generator=torch.Generator().manual_seed(45)) * 0.5
 
+    # Shear matrices
+    # Simple shear: identity matrix with small off-diagonal elements
+    shear_matrix_small = torch.eye(dim)
+    # Add shear in first 10 dimensions (shear factor 0.1)
+    for i in range(min(10, dim-1)):
+        shear_matrix_small[i, i+1] = 0.1
+
+    shear_matrix_medium = torch.eye(dim)
+    # Add shear in first 10 dimensions (shear factor 0.3)
+    for i in range(min(10, dim-1)):
+        shear_matrix_medium[i, i+1] = 0.3
+
+    # Reflection matrices
+    # 1. Reflection through origin: -I
+    reflection_origin = -torch.eye(dim)
+
+    # 2. Reflection across a random hyperplane: R = I - 2*(v⊗v) where v is unit normal
+    v = torch.randn(dim, generator=torch.Generator().manual_seed(46))
+    v = v / torch.linalg.norm(v)  # Normalize to unit vector
+    reflection_hyperplane = torch.eye(dim) - 2 * torch.outer(v, v)
+
     # Define transformations to test
     transformations = {
         "baseline": None,  # No transformation
@@ -212,6 +233,10 @@ def main():
         "scaling_gaussian": Scaling(scales_gaussian),
         "translation_small": Translation(translation_small),
         "translation_medium": Translation(translation_medium),
+        "shear_small": Shear(shear_matrix_small),
+        "shear_medium": Shear(shear_matrix_medium),
+        "reflection_origin": Reflection(reflection_origin),
+        "reflection_hyperplane": Reflection(reflection_hyperplane),
 
         # === Continuity Transformations ===
         "gaussian_noise_0.05": GaussianNoise(sigma=0.05, seed=42),

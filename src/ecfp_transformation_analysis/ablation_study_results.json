@@ -1,0 +1,1826 @@
+{
+  "esol_Binary_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.1087815761566162,
+      "test": 1.0991897583007812
+    },
+    "distances": null
+  },
+  "lipo_Binary_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8107762932777405,
+      "test": 0.825977087020874
+    },
+    "distances": null
+  },
+  "bace_Binary_Baseline": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.907304412309974,
+      "test": 0.8671861471861472
+    },
+    "distances": null
+  },
+  "esol_Count_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.6703479886054993,
+      "test": 0.760573148727417
+    },
+    "distances": null
+  },
+  "lipo_Count_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7516512870788574,
+      "test": 0.7301655411720276
+    },
+    "distances": null
+  },
+  "bace_Count_Baseline": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9080459770114943,
+      "test": 0.8545454545454546
+    },
+    "distances": null
+  },
+  "esol_Binary_Rotation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.12675142288208,
+      "test": 1.072085976600647
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9998318396742982,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.999848669669731,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9993556057212898,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_Rotation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.6647747755050659,
+      "test": 0.6775043606758118
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.999805895298051,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999908044758498,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9988995926203997,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_Rotation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7598326802253723,
+      "test": 0.810751736164093
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999921666969317,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9998199099629037,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999120111696,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_Rotation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7021670341491699,
+      "test": 0.6971392035484314
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.99999993082216,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999872322226468,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999984873104,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_Rotation": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9054505005561735,
+      "test": 0.8671861471861472
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999974364241154,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9998404551550083,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999742417106,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_Rotation": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.900444938820912,
+      "test": 0.8626839826839826
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999999479104341,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999913097438304,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999997189438,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_Permutation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.102414846420288,
+      "test": 1.0491259098052979
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_Permutation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7058157324790955,
+      "test": 0.7745280265808105
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999999999999999,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999997445684,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_Permutation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8078785538673401,
+      "test": 0.8190458416938782
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_Permutation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7507044672966003,
+      "test": 0.7306658029556274
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999999999999999,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.999999999919261,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_Permutation": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9063774564330739,
+      "test": 0.8694372294372295
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999999999999,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_Permutation": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9041527623285133,
+      "test": 0.8583549783549783
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999999299354,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_Translation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.2378594875335693,
+      "test": 1.2044020891189575
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.24219875974568264,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9997977132125051,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.2278649990479354,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_Translation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7445210218429565,
+      "test": 0.8160616755485535
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.8155147493524487,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.99999286867544,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.8228752376215431,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_Translation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7941396832466125,
+      "test": 0.799700915813446
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.7201357851919805,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.999787354777202,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.708756281256698,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_Translation": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.741069495677948,
+      "test": 0.7150914669036865
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9949397979191449,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999884548509151,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9951336079575585,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_Translation": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9019280682239526,
+      "test": 0.870995670995671
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.947956133424471,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9998097411737122,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9449400367461676,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_Translation": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9043381535038932,
+      "test": 0.8609523809523809
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9962900989231789,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999906975165753,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9961878346899987,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_Shear": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.118384838104248,
+      "test": 1.0905680656433105
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9996076637230202,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9998537026329262,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9996210419929368,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_Shear": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.6736472249031067,
+      "test": 0.7433676719665527
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9998624494225566,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999923630270514,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9998722536296262,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_Shear": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8104476928710938,
+      "test": 0.8175508379936218
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.999896699996154,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9997919786953506,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9998943897536035,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_Shear": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.747098445892334,
+      "test": 0.7187637686729431
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999986204564097,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999882688256317,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999985444026812,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_Shear": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9098998887652948,
+      "test": 0.8729004329004328
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999298376649751,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.999827094696454,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.999929142032483,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_Shear": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9063774564330739,
+      "test": 0.8604329004329005
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999857617126272,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999839157718879,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999862661939813,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_Reflection": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.1466727256774902,
+      "test": 1.081680178642273
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_Reflection": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.6763127446174622,
+      "test": 0.7782428860664368
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_Reflection": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8107776045799255,
+      "test": 0.8349146842956543
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9999999999999999,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_Reflection": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7428358197212219,
+      "test": 0.6980987787246704
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999999999999999,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_Reflection": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9060066740823136,
+      "test": 0.8528138528138528
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_Reflection": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9058212829069336,
+      "test": 0.8547186147186148
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9999999999999999,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 1.0,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_Scaling": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.115805983543396,
+      "test": 1.133775234222412
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.946334605652186,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9726694547085092,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9426967166955147,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_Scaling": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.6731298565864563,
+      "test": 0.7367410063743591
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9794218785254057,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9541152118604697,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9781464117993944,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_Scaling": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8153473138809204,
+      "test": 0.8253970742225647
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.8960872784602653,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9427753579569131,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.8945645519829503,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_Scaling": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7596297860145569,
+      "test": 0.7226114273071289
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9521453210988942,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9250068812339503,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9539724783660121,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_Scaling": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9047089358546534,
+      "test": 0.8633766233766234
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9625125699223817,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9342618415427932,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9615467032553303,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_Scaling": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9037819799777531,
+      "test": 0.8498701298701299
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9700550234220413,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9587002601749968,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9668589376417819,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_GaussianNoise": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.5674203634262085,
+      "test": 1.7147796154022217
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.8978999022287368,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9898560543270015,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.8941096580563433,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_GaussianNoise": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.003673791885376,
+      "test": 0.9437360167503357
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9855425305038894,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9988352823951074,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9827178953967894,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_GaussianNoise": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.9719250202178955,
+      "test": 0.9365630745887756
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9307645439142667,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.978381427927438,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9225127398625765,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_GaussianNoise": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8701374530792236,
+      "test": 0.8649436831474304
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9903042347500761,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9977125968599793,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9877734193668644,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_GaussianNoise": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.8737486095661846,
+      "test": 0.8548917748917749
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9705621724326449,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.9815801055191438,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.968456446732608,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_GaussianNoise": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.8870967741935484,
+      "test": 0.858008658008658
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9923766114460424,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.998195248005185,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9899667616792562,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_L2Norm": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.1189749240875244,
+      "test": 1.085357427597046
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9923880123284269,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.006766313456923798,
+        "p_value": 0.1518766847767211,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999997889336036,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_L2Norm": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.992790699005127,
+      "test": 0.9614019393920898
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9913155151651989,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.26060852044988836,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999986536464,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_L2Norm": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7973988652229309,
+      "test": 0.8378621935844421
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9919024080766252,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.2076230150035269,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999811757406,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_L2Norm": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7725004553794861,
+      "test": 0.7730107307434082
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9545433963869574,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.507070593333155,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.999999999922387,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_L2Norm": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9056358917315536,
+      "test": 0.85991341991342
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9985038612408381,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5626472428991137,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.999999988364659,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_L2Norm": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9024842417500928,
+      "test": 0.8597402597402598
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9599839214860496,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5517949072178264,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999999491557,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_Standardization": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.3698573112487793,
+      "test": 1.331937313079834
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.48063222466195643,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.7964260240887304,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.46956767604457045,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_Standardization": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.3211709260940552,
+      "test": 1.3906447887420654
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.2633192061826324,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.33342675496719604,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.2833108968776114,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_Standardization": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8269025087356567,
+      "test": 0.8428416848182678
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.5724115569366746,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5445902231794676,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.5791401589690983,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_Standardization": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8172081112861633,
+      "test": 0.7560271620750427
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.28287018662037033,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.34600851450238235,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.29079799990999267,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_Standardization": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9082313681868743,
+      "test": 0.8496969696969697
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.7060094817137269,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.37430503685601146,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.7143708714021639,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_Standardization": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9169447534297368,
+      "test": 0.8561038961038961
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.45465206256358753,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.2656988395928516,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.4606189202175476,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_MultiRadius_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.1336474418640137,
+      "test": 1.084767460823059
+    },
+    "distances": null
+  },
+  "esol_Count_MultiRadius_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7018205523490906,
+      "test": 0.7423368096351624
+    },
+    "distances": null
+  },
+  "lipo_Binary_MultiRadius_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7540246248245239,
+      "test": 0.7665936946868896
+    },
+    "distances": null
+  },
+  "lipo_Count_MultiRadius_Baseline": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7032948136329651,
+      "test": 0.6752427816390991
+    },
+    "distances": null
+  },
+  "bace_Binary_MultiRadius_Baseline": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9147200593251762,
+      "test": 0.8831168831168831
+    },
+    "distances": null
+  },
+  "bace_Count_MultiRadius_Baseline": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9089729328883946,
+      "test": 0.8767099567099568
+    },
+    "distances": null
+  },
+  "esol_Binary_BlockMixing_Identity": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.0036208629608154,
+      "test": 1.0464664697647095
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9943236965340161,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.04500878446409269,
+        "p_value": 1.4781160495240113e-21,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9992025846898341,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_BlockMixing_Identity": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.819547176361084,
+      "test": 0.8609721064567566
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.992772030417148,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.28875476942765005,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9983272274703163,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_BlockMixing_Identity": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7241259217262268,
+      "test": 0.7552938461303711
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9957256097837122,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.21534415660399533,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999261242761,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_BlockMixing_Identity": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.6783758401870728,
+      "test": 0.6661441922187805
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9668087066898273,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5400186578418222,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999995163649,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_BlockMixing_Identity": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9123099740452354,
+      "test": 0.8694372294372295
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9983530114886441,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5752688300183876,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999715891664,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_BlockMixing_Identity": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.896551724137931,
+      "test": 0.8677056277056278
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9483776345195873,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5063978059676664,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999999993195723,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_BlockMixing_ReLU": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.9920763969421387,
+      "test": 1.0163450241088867
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9750745378487102,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": -0.03821475128069548,
+        "p_value": 5.689758994931002e-16,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9720709211398894,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_BlockMixing_ReLU": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8330530524253845,
+      "test": 0.8771198987960815
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9839865675031154,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.2416483268488147,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.989241927625353,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_BlockMixing_ReLU": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7131437659263611,
+      "test": 0.7576156854629517
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9748536231382717,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.16550372648666017,
+        "p_value": 7.58846709695627e-273,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9773848555390433,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_BlockMixing_ReLU": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.6886966824531555,
+      "test": 0.6929523348808289
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9580583859030293,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5161985180849922,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9965265641180369,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_BlockMixing_ReLU": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9295513533555804,
+      "test": 0.8521212121212121
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9885046284388829,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5846494581979552,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9888446600830102,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_BlockMixing_ReLU": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9124953652206156,
+      "test": 0.8451948051948052
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.951425412780354,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5137920522491077,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.996141749918836,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Binary_BlockMixing_Tanh": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 1.0018045902252197,
+      "test": 1.0821577310562134
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9912762382818011,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.06853785287703068,
+        "p_value": 7.651913242432735e-48,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9974128951668669,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "esol_Count_BlockMixing_Tanh": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.8244267702102661,
+      "test": 0.8629798293113708
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9879150565021808,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.26420959078859013,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9988020058036116,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Binary_BlockMixing_Tanh": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.7279185056686401,
+      "test": 0.7598859667778015
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9965154531874933,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.19895015479037512,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999876282295134,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "lipo_Count_BlockMixing_Tanh": {
+    "downstream": {
+      "metric": "RMSE",
+      "val": 0.688936710357666,
+      "test": 0.6723353862762451
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.951794212796814,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.4527972311035184,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9995046264377105,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Binary_BlockMixing_Tanh": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9102706711160549,
+      "test": 0.8723809523809525
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9989662172923391,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5822151916009097,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.9999929225535927,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  },
+  "bace_Count_BlockMixing_Tanh": {
+    "downstream": {
+      "metric": "ROC_AUC",
+      "val": 0.9013718946978123,
+      "test": 0.8680519480519481
+    },
+    "distances": {
+      "tanimoto": {
+        "correlation": 0.9519554136294173,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "euclidean": {
+        "correlation": 0.5494016883861147,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      },
+      "cosine": {
+        "correlation": 0.999192562832828,
+        "p_value": 0.0,
+        "correlation_method": "spearman"
+      }
+    }
+  }
+}

@@ -57,6 +57,56 @@ class Translation(StatelessTransform):
     def to(self, device): self.b = self.b.to(device); return self
     def __call__(self, x, idx=None): return x + self.b
 
+class Shear(StatelessTransform):
+    """
+    Applies a shear transformation: x' = S @ x, where S is a shear matrix.
+
+    A shear transformation is a linear map that displaces each point in a fixed
+    direction by an amount proportional to its signed distance from a line/plane.
+    For a vector x, we can shear along certain dimensions.
+
+    Simple 2D example: S = [[1, k], [0, 1]] shears along x-axis by factor k.
+    """
+    def __init__(self, shear_matrix: torch.Tensor):
+        """
+        Args:
+            shear_matrix: Shear matrix [D, D] where D is the dimension
+        """
+        self.S = shear_matrix
+
+    def to(self, device):
+        self.S = self.S.to(device)
+        return self
+
+    def __call__(self, x, idx=None):
+        return self.S @ x
+
+class Reflection(StatelessTransform):
+    """
+    Applies a reflection transformation: x' = R @ x, where R is a reflection matrix.
+
+    Reflection can be:
+    - Through origin: R = -I (multiply all components by -1)
+    - Across a hyperplane: R = I - 2 * (v ⊗ v) where v is the unit normal to the hyperplane
+
+    For ECFPs, reflection through origin is most meaningful.
+    """
+    def __init__(self, reflection_matrix: torch.Tensor):
+        """
+        Args:
+            reflection_matrix: Reflection matrix [D, D]
+                             - For reflection through origin: -I
+                             - For reflection across hyperplane: I - 2*(v⊗v)
+        """
+        self.R = reflection_matrix
+
+    def to(self, device):
+        self.R = self.R.to(device)
+        return self
+
+    def __call__(self, x, idx=None):
+        return self.R @ x
+
 class DropoutDeterministic(StatelessTransform):
     """Same mask for all samples (useful for ablations)."""
     def __init__(self, keep: float, dim: int, seed: int = 0):
@@ -321,6 +371,8 @@ class BlockRadiusLinearMixing(StatelessTransform):
             self.activation = F.gelu
         elif nonlinearity == "sigmoid":
             self.activation = torch.sigmoid
+        elif nonlinearity == "identity":
+            self.activation = lambda x : x
         else:
             raise ValueError(f"Unknown nonlinearity: {nonlinearity}")
 

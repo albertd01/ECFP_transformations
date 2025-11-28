@@ -18,8 +18,6 @@ from typing import Callable, List, Optional, Sequence, Tuple
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader, TensorDataset
-import torch.nn as nn
-import torch.nn.functional as F
 from torch_geometric.datasets import MoleculeNet
 
 from rdkit import Chem, DataStructs
@@ -355,7 +353,6 @@ class ECFPDataset:
 
     @property
     def features(self):
-        """Alias for X to provide a clearer API for accessing feature matrix."""
         return self.X
 
     # ---------- Convenience ----------
@@ -417,45 +414,3 @@ class RadiusSchema:
 
     def slices(self):
         return [slice(a,b) for (a,b) in self.blocks]
-
-class BlockRadiusMixer(nn.Module):
-    """
-    Applies, for each radius block r, y_r = sigma(Q_r x_r), then concatenates and L2-normalizes.
-    Q_r is orthogonal (fixed once). Optionally add cross-radius coupling later.
-    """
-    def __init__(self, schema, nonlin="relu", seed=0):
-        super().__init__()
-        self.slices = schema.slices()
-        self.blocks = nn.ModuleList()
-
-        g = torch.Generator().manual_seed(seed)
-        for sl in self.slices:
-            d = sl.stop - sl.start
-            # build an orthogonal matrix Q_r
-            A = torch.randn(d, d, generator=g)
-            Q, R = torch.linalg.qr(A)
-            # fix sign ambiguity to make det ~ +1
-            sign = torch.sign(torch.diag(R))
-            Q = Q * sign
-            layer = nn.Linear(d, d, bias=False)
-            layer.weight.data.copy_(Q.T)  # so y = Q x
-            layer.weight.requires_grad_(False)  # frozen; this is a "fixed GNN layer"
-            self.blocks.append(layer)
-
-        self.nonlin = getattr(F, nonlin) if isinstance(nonlin, str) else nonlin
-
-    @torch.no_grad()
-    def forward(self, x):
-        # x: [D] or [B, D]
-        batched = (x.dim() == 2)
-        if not batched:
-            x = x.unsqueeze(0)
-
-        outs = []
-        for layer, sl in zip(self.blocks, self.slices):
-            z = layer(x[..., sl])           # blockwise linear mix
-            z = self.nonlin(z)              # nonlinearity
-            outs.append(z)
-        y = torch.cat(outs, dim=-1)
-        y = F.normalize(y, p=2, dim=-1)     # L2 normalize
-        return y if batched else y.squeeze(0)
