@@ -183,7 +183,7 @@ def analyze_distance_preservation(
     X_orig = original_dataset.features  # [N, D]
     X_trans = transformed_dataset.features  # [N, D]
 
-    # CRITICAL: Generate sample indices ONCE to ensure we compare the same molecules
+    # Generate sample indices ONCE to ensure we compare the same molecules
     sample_indices = None
     if sample_size is not None and sample_size < X_orig.shape[0]:
         sample_indices = torch.randperm(X_orig.shape[0])[:sample_size]

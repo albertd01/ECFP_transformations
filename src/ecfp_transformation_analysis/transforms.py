@@ -52,26 +52,12 @@ class Scaling(StatelessTransform):
     def __call__(self, x, idx=None): return x * self.s
 
 class Translation(StatelessTransform):
-    """Adds a constant vector to shift features: x' = x + b"""
     def __init__(self, bias: torch.Tensor): self.b = bias
     def to(self, device): self.b = self.b.to(device); return self
     def __call__(self, x, idx=None): return x + self.b
 
 class Shear(StatelessTransform):
-    """
-    Applies a shear transformation: x' = S @ x, where S is a shear matrix.
-
-    A shear transformation is a linear map that displaces each point in a fixed
-    direction by an amount proportional to its signed distance from a line/plane.
-    For a vector x, we can shear along certain dimensions.
-
-    Simple 2D example: S = [[1, k], [0, 1]] shears along x-axis by factor k.
-    """
     def __init__(self, shear_matrix: torch.Tensor):
-        """
-        Args:
-            shear_matrix: Shear matrix [D, D] where D is the dimension
-        """
         self.S = shear_matrix
 
     def to(self, device):
@@ -82,22 +68,7 @@ class Shear(StatelessTransform):
         return self.S @ x
 
 class Reflection(StatelessTransform):
-    """
-    Applies a reflection transformation: x' = R @ x, where R is a reflection matrix.
-
-    Reflection can be:
-    - Through origin: R = -I (multiply all components by -1)
-    - Across a hyperplane: R = I - 2 * (v ⊗ v) where v is the unit normal to the hyperplane
-
-    For ECFPs, reflection through origin is most meaningful.
-    """
     def __init__(self, reflection_matrix: torch.Tensor):
-        """
-        Args:
-            reflection_matrix: Reflection matrix [D, D]
-                             - For reflection through origin: -I
-                             - For reflection across hyperplane: I - 2*(v⊗v)
-        """
         self.R = reflection_matrix
 
     def to(self, device):
@@ -142,17 +113,12 @@ class RandomGaussianProjection(BaseTransform):
 # ============================================================================
 
 class GaussianNoise(StatelessTransform):
-    """
-    Adds Gaussian noise to create continuity: x' = x + ε, where ε ~ N(0, σ²I).
-    This converts discrete/binary ECFPs to continuous values.
-    """
     def __init__(self, sigma: float = 0.1, seed: int = 0):
         self.sigma = sigma
         self.seed = seed
         self.rng = torch.Generator().manual_seed(seed)
 
     def __call__(self, x, idx=None):
-        # Use idx as additional seed if provided for reproducibility per sample
         if idx is not None:
             g = torch.Generator().manual_seed(self.seed + idx)
         else:
@@ -162,10 +128,6 @@ class GaussianNoise(StatelessTransform):
 
 
 class L2Normalization(StatelessTransform):
-    """
-    Normalizes vectors to unit L2 norm: x' = x / ||x||₂.
-    Creates denser representations by spreading values across the sphere.
-    """
     def __init__(self, eps: float = 1e-8):
         self.eps = eps
 
@@ -175,18 +137,12 @@ class L2Normalization(StatelessTransform):
 
 
 class Standardization(BaseTransform):
-    """
-    Z-score normalization: x' = (x - μ) / σ.
-    Stateful: computes mean and std from training data in fit().
-    Creates continuous, zero-centered representations.
-    """
     def __init__(self, eps: float = 1e-8):
         self.eps = eps
         self.mean = None
         self.std = None
 
     def fit(self, X):
-        # X: [N, D] tensor
         self.mean = X.mean(dim=0)
         self.std = X.std(dim=0) + self.eps
         return self
@@ -214,11 +170,6 @@ class NonlinearActivation(StatelessTransform):
     Supports: tanh, sigmoid, softplus, gelu.
     """
     def __init__(self, activation: str = "tanh", scale: float = 1.0):
-        """
-        Args:
-            activation: One of ["tanh", "sigmoid", "softplus", "gelu"]
-            scale: Scaling factor applied before activation (larger = steeper)
-        """
         self.activation = activation.lower()
         self.scale = scale
 
@@ -342,7 +293,8 @@ class BlockRadiusLinearMixing(StatelessTransform):
         self,
         radius_blocks: Sequence[tuple],
         nonlinearity: str = "relu",
-        seed: int = 0
+        seed: int = 0,
+        normalize = True
     ):
         self.radius_blocks = list(radius_blocks)
         self.nonlinearity = nonlinearity
