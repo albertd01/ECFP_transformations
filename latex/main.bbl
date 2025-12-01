@@ -1,0 +1,64 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{rogers2010extended}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=f6d413a592d2c04bd137afcd4deb373c}{%
+           family={Rogers},
+           familyi={R\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=8c9d0d7c3790a2a6c83c8c75bbd2eeee}{%
+           family={Hahn},
+           familyi={H\bibinitperiod},
+           given={Mathew},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {ACS Publications}%
+      }
+      \strng{namehash}{86a0ac931c5d3b769f8007bd4f053d71}
+      \strng{fullhash}{86a0ac931c5d3b769f8007bd4f053d71}
+      \strng{fullhashraw}{86a0ac931c5d3b769f8007bd4f053d71}
+      \strng{bibnamehash}{86a0ac931c5d3b769f8007bd4f053d71}
+      \strng{authorbibnamehash}{86a0ac931c5d3b769f8007bd4f053d71}
+      \strng{authornamehash}{86a0ac931c5d3b769f8007bd4f053d71}
+      \strng{authorfullhash}{86a0ac931c5d3b769f8007bd4f053d71}
+      \strng{authorfullhashraw}{86a0ac931c5d3b769f8007bd4f053d71}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Chemical Information and Modeling}
+      \field{number}{5}
+      \field{title}{Extended-connectivity fingerprints}
+      \field{volume}{50}
+      \field{year}{2010}
+      \field{pages}{742\bibrangedash 754}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1021/ci100050t
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
