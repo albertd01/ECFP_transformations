@@ -99,8 +99,8 @@ def run_multiradius_experiment(
         radius=radius,
         n_bits=n_bits,
         use_count=use_count,
-        multi_radius=True,
-        n_bits_per_radius=n_bits_per_radius
+        multi_radius=False,
+        #n_bits_per_radius=n_bits_per_radius
     )
     
     # Create transformation if nonlinearity is provided
