@@ -190,12 +190,6 @@ class NonlinearActivation(StatelessTransform):
 
 
 class SparseToDense(StatelessTransform):
-    """
-    Converts sparse binary vectors to dense continuous representations.
-    Uses temperature-scaled softmax: x'ᵢ = exp(xᵢ/T) / (Σⱼ exp(xⱼ/T) + ε).
-    Lower temperature → more peaked (closer to original).
-    Higher temperature → more uniform (denser).
-    """
     def __init__(self, temperature: float = 1.0, mode: str = "softmax"):
         """
         Args:
@@ -220,11 +214,6 @@ class SparseToDense(StatelessTransform):
 
 
 class AdaptiveScaling(BaseTransform):
-    """
-    Feature-wise learned scaling and shifting: x' = scale * x + shift.
-    Similar to batch normalization but with parameters learned from data.
-    Stateful: computes scale and shift from training data statistics.
-    """
     def __init__(self, method: str = "minmax"):
         """
         Args:

@@ -55,17 +55,10 @@ def compute_pairwise_distances(
             distances[i] = torch.abs(X - X[i]).sum(dim=1)
 
     elif metric == "tanimoto":
-        # Continuous Tanimoto distance (from Duvenaud et al. 2015)
-        # Tanimoto similarity: s(a,b) = (a�b) / (||a||� + ||b||� - a�b)
-        # Tanimoto distance: d(a,b) = 1 - s(a,b)
-
-        # Compute dot products: [N, N]
         dot_products = X @ X.T
 
-        # Compute squared norms: [N, 1]
         squared_norms = (X * X).sum(dim=1, keepdim=True)  # [N, 1]
 
-        # Denominator: ||a||� + ||b||� - a�b
         denominators = squared_norms + squared_norms.T - dot_products
 
         # Tanimoto similarity
@@ -110,18 +103,7 @@ def distance_correlation(
     dist2: np.ndarray,
     method: str = "spearman"
 ) -> Tuple[float, float]:
-    """
-    Compute correlation between two distance matrices.
 
-    Args:
-        dist1: First distance matrix [N, N]
-        dist2: Second distance matrix [N, N]
-        method: "spearman" or "pearson"
-
-    Returns:
-        (correlation, p_value)
-    """
-    # Extract upper triangle (excluding diagonal) to avoid redundancy
     N = dist1.shape[0]
     mask = np.triu(np.ones((N, N), dtype=bool), k=1)
 
